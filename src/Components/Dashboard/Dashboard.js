@@ -29,6 +29,7 @@ export default class Dashboard extends Component {
       .then(() => this.getInventory())
       .catch((err) => console.log(err));
   };
+
   render() {
     const { products } = this.state;
     return (

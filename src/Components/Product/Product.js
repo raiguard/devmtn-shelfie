@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import "./Product.css";
 
 export default class Dashboard extends Component {
@@ -15,7 +17,7 @@ export default class Dashboard extends Component {
           <p>Name: {data.name}</p>
           <p>Price: {data.price}</p>
           <button onClick={this.onDeleteButtonClick}>Delete</button>
-          <button onClick={() => this.props.setSelectedFn(+data.id)}>Edit</button>
+          <Link to={`/edit/${data.id}`}>Edit</Link>
         </div>
       </section>
     );

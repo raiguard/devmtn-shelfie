@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 
@@ -8,25 +9,31 @@ import "./Form.css";
 export default class Form extends Component {
   constructor(props) {
     super(props);
-    const { selected } = this.props;
     this.state = {
       img: "",
       name: "",
       price: "0",
-      selected
+      id: null
     };
   }
 
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    if (id) {
+      this.getProductInfo(id);
+    }
+  }
+
   componentDidUpdate(prevProps) {
-    const { selected } = this.props;
-    if (prevProps.selected !== selected) {
-      this.setState({ selected });
-      if (selected !== null) {
-        axios.get(`/api/product/${selected}`).then((res) => {
-          const { img, name, price } = res.data[0];
-          this.setState({ img, name, price });
-        });
-      }
+    const idPrev = prevProps.match.params.id;
+    const idCurrent = this.props.match.params.id;
+    if (idPrev && !idCurrent) {
+      this.setState({
+        img: "",
+        name: "",
+        price: "0",
+        id: null
+      });
     }
   }
 
@@ -37,10 +44,6 @@ export default class Form extends Component {
     this.setState({ [varName]: currentText });
   };
 
-  onCancelClick = () => {
-    this.resetState();
-  };
-
   onAddClick = () => {
     const { img, name } = this.state;
     let { price } = this.state;
@@ -49,38 +52,37 @@ export default class Form extends Component {
       .post("/api/product", { img, name, price })
       .then(() => {
         this.props.getInventoryFn();
-        this.resetState();
       })
       .catch((err) => console.log(err));
   };
 
   onSaveClick = () => {
-    const { name, img, selected } = this.state;
+    const { name, img, id } = this.state;
     let { price } = this.state;
     price = +price;
     axios
-      .put(`/api/product/${selected}`, { img, name, price })
+      .put(`/api/product/${id}`, { img, name, price })
       .then(() => {
         this.props.getInventoryFn();
-        this.resetState();
       })
       .catch((err) => console.log(err));
   };
 
-  resetState = () => {
-    this.setState({
-      img: "",
-      name: "",
-      price: "0",
-      selected: null
-    });
+  getProductInfo = (id) => {
+    axios
+      .get(`/api/product/${id}`)
+      .then((res) => {
+        const { img, name, price, id } = res.data[0];
+        this.setState({ img, name, price, id });
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
-    const { img, name, price, selected } = this.state;
+    const { img, name, price, id } = this.state;
     return (
       <div className="form">
-        <img src="" alt="TODO" />
+        <img src={img} alt="Product" />
         <InputWithLabel label="Image URL:" currentText={img} onChangeFn={this.onInputChange} varName="img" type="url" />
         <InputWithLabel
           label="Product Name:"
@@ -98,11 +100,15 @@ export default class Form extends Component {
           min="0"
         />
         <section className="form-button-row">
-          <button onClick={this.onCancelClick}>Cancel</button>
-          {selected === null ? (
-            <button onClick={this.onAddClick}>Add product</button>
+          <Link to="/">Cancel</Link>
+          {id === null ? (
+            <Link to="/" onClick={this.onAddClick}>
+              Add product
+            </Link>
           ) : (
-            <button onClick={this.onSaveClick}>Save changes</button>
+            <Link to="/" onClick={this.onSaveClick}>
+              Save changes
+            </Link>
           )}
         </section>
       </div>
