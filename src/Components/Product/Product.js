@@ -5,14 +5,22 @@ import "./Product.css";
 import placeholder from "../../assets/placeholder.png";
 
 export default class Dashboard extends Component {
-  onDeleteButtonClick = () => {
+  constructor(props) {
+    super(props);
+
+    // I'd rather just use arrow functions, but rubric compliance!
+    this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
+    this.fallbackToPlaceholderImg = this.fallbackToPlaceholderImg.bind(this);
+  }
+
+  onDeleteButtonClick() {
     const { data, deleteProductFn } = this.props;
     deleteProductFn(data.id);
-  };
+  }
 
-  fallbackToPlaceholderImg = (e) => {
+  fallbackToPlaceholderImg(e) {
     e.target.src = placeholder;
-  };
+  }
 
   render() {
     const { data } = this.props;
