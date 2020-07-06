@@ -32,6 +32,11 @@
   font-family: OpenSans;
 }
 
-.header-spacer {
-  height: 9.5rem;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  box-sizing: border-box;
+  margin-top: 9.5rem;
 }

@@ -32,7 +32,7 @@
 
 .product-right-side-container {
   width: 15rem;
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
