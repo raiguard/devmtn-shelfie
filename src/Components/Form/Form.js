@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 
@@ -14,7 +14,8 @@ export default class Form extends Component {
       img: "",
       name: "",
       price: "0",
-      id: null
+      id: null,
+      redirect: false
     };
   }
 
@@ -33,7 +34,8 @@ export default class Form extends Component {
         img: "",
         name: "",
         price: "0",
-        id: null
+        id: null,
+        redirect: false
       });
     }
   }
@@ -52,8 +54,7 @@ export default class Form extends Component {
     axios
       .post("/api/product", { img, name, price })
       .then(() => {
-        // TODO redirect here
-        // this.props.getInventoryFn();
+        this.setState({ redirect: true });
       })
       .catch((err) => console.log(err));
   };
@@ -65,8 +66,7 @@ export default class Form extends Component {
     axios
       .put(`/api/product/${id}`, { img, name, price })
       .then(() => {
-        // TODO redirect here
-        // this.props.getInventoryFn();
+        this.setState({ redirect: true });
       })
       .catch((err) => console.log(err));
   };
@@ -86,7 +86,10 @@ export default class Form extends Component {
   };
 
   render() {
-    const { img, name, price, id } = this.state;
+    const { img, name, price, id, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <section className="form">
         <div className="fill form-image">
@@ -109,15 +112,12 @@ export default class Form extends Component {
           min="0"
         />
         <section className="form-button-row">
-          <Link to="/">Cancel</Link>
+          {/* Here we use buttons instead of links, to guarantee that the database updates before we redirect */}
+          <button onClick={() => this.setState({ redirect: true })}>Cancel</button>
           {id === null ? (
-            <Link to="/" onClick={this.onAddClick}>
-              Add to Inventory
-            </Link>
+            <button onClick={this.onAddClick}>Add to Inventory</button>
           ) : (
-            <Link to="/" onClick={this.onSaveClick}>
-              Save changes
-            </Link>
+            <button onClick={this.onSaveClick}>Save changes</button>
           )}
         </section>
       </section>

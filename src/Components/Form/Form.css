@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
 }
 
 .form-image {
@@ -24,13 +25,16 @@
   padding: 0.4rem 0rem;
 }
 
-.form a {
+.form button {
   background-color: #ed6b5a;
   text-decoration: none;
   color: #000000;
   box-sizing: border-box;
-  padding: 0.7rem;
+  padding: 0.8rem;
   border-radius: 0.4rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1rem;
   margin-top: 1rem;
+  border: 0;
+  cursor: pointer;
 }
