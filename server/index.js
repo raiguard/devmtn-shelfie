@@ -21,5 +21,6 @@ massive({
   .catch((err) => console.log(err));
 
 app.get("/api/inventory", cont.getInventory);
+app.post("/api/product", cont.createProduct);
 
 app.listen(SERVER_PORT, () => console.log(`Server is running on port ${SERVER_PORT}`));
