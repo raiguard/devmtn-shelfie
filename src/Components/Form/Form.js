@@ -46,7 +46,7 @@ export default class Form extends Component {
     const { img, name, price } = this.state;
     return (
       <div className="form">
-        <img src="" />
+        <img src="" alt="TODO" />
         <InputWithLabel label="Image URL:" currentText={img} onChangeFn={this.onInputChange} varName="img" type="url" />
         <InputWithLabel
           label="Product Name:"

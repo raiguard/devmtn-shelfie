@@ -32,7 +32,7 @@ export default class App extends Component {
       <div className="app">
         <Header />
         <Form getInventoryFn={this.getInventory} />
-        <Dashboard products={products} />
+        <Dashboard products={products} getInventoryFn={this.getInventory} />
       </div>
     );
   }
