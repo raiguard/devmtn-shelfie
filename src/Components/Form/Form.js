@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Form.css";
 
-import InputWithLabel from "./InputWithLabel/InputWithLabel";
+import InputWithLabel from "../InputWithLabel/InputWithLabel";
 
 export default class Form extends Component {
   constructor(props) {

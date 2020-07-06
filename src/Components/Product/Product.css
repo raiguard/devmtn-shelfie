@@ -1,0 +1,17 @@
+.product {
+  width: 35rem;
+  height: 11rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.product-image {
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.product-description-container {
+  margin-left: 0.5rem;
+}

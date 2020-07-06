@@ -12,7 +12,10 @@ massive({
   connectionString: CONNECTION_STRING,
   ssl: { rejectUnauthorized: false }
 })
-  .then(() => console.log("Database connection established"))
+  .then((db) => {
+    app.set("db", db);
+    console.log("Database connection established");
+  })
   .catch((err) => console.log(err));
 
 app.listen(SERVER_PORT, () => console.log(`Server is running on port ${SERVER_PORT}`));
