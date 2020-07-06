@@ -1,0 +1,13 @@
+.form {
+  width: 15rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.form-button-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0rem;
+}
