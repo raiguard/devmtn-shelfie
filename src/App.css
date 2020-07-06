@@ -31,3 +31,7 @@
 .app {
   font-family: OpenSans;
 }
+
+.header-spacer {
+  height: 9.5rem;
+}

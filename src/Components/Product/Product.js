@@ -10,14 +10,25 @@ export default class Dashboard extends Component {
   };
   render() {
     const { data } = this.props;
+
     return (
       <section className="product">
-        <img className="product-image" src={data.img} alt="Product" />
-        <div className="product-description-container">
-          <p>Name: {data.name}</p>
-          <p>Price: {data.price}</p>
-          <button onClick={this.onDeleteButtonClick}>Delete</button>
-          <Link to={`/edit/${data.id}`}>Edit</Link>
+        <div className="product-image">
+          <img src={data.img} alt="Product" />
+        </div>
+        <div className="product-right-side-container">
+          <div>
+            <h2>{data.name}</h2>
+            <h3>${data.price}</h3>
+          </div>
+          <div className="product-buttons-container">
+            <Link className="product-button" onClick={this.onDeleteButtonClick}>
+              Delete
+            </Link>
+            <Link className="product-button" to={`/edit/${data.id}`}>
+              Edit
+            </Link>
+          </div>
         </div>
       </section>
     );

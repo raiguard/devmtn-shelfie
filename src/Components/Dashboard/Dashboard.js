@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Product from "../Product/Product";
 
 import axios from "axios";
+import "./Dashboard.css";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class Dashboard extends Component {
   render() {
     const { products } = this.state;
     return (
-      <section>
+      <section className="dashboard">
         {products.map((product, i) => (
           <Product key={i} data={product} deleteProductFn={this.deleteProduct} />
         ))}
