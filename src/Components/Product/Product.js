@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import "./Product.css";
+import placeholder from "../../assets/placeholder.png";
 
 export default class Dashboard extends Component {
   onDeleteButtonClick = () => {
     const { data, deleteProductFn } = this.props;
     deleteProductFn(data.id);
   };
+
+  fallbackToPlaceholderImg = (e) => {
+    e.target.src = placeholder;
+  };
+
   render() {
     const { data } = this.props;
 
     return (
       <section className="product">
-        <div className="product-image">
-          <img src={data.img} alt="Product" />
+        <div className="fill product-image">
+          <img src={data.img} alt="Product" onError={this.fallbackToPlaceholderImg} />
         </div>
         <div className="product-right-side-container">
           <div>

@@ -5,6 +5,7 @@ import InputWithLabel from "../InputWithLabel/InputWithLabel";
 
 import axios from "axios";
 import "./Form.css";
+import placeholder from "../../assets/placeholder.png";
 
 export default class Form extends Component {
   constructor(props) {
@@ -51,7 +52,8 @@ export default class Form extends Component {
     axios
       .post("/api/product", { img, name, price })
       .then(() => {
-        this.props.getInventoryFn();
+        // TODO redirect here
+        // this.props.getInventoryFn();
       })
       .catch((err) => console.log(err));
   };
@@ -63,7 +65,8 @@ export default class Form extends Component {
     axios
       .put(`/api/product/${id}`, { img, name, price })
       .then(() => {
-        this.props.getInventoryFn();
+        // TODO redirect here
+        // this.props.getInventoryFn();
       })
       .catch((err) => console.log(err));
   };
@@ -78,11 +81,17 @@ export default class Form extends Component {
       .catch((err) => console.log(err));
   };
 
+  fallbackToPlaceholderImg = (e) => {
+    e.target.src = placeholder;
+  };
+
   render() {
     const { img, name, price, id } = this.state;
     return (
-      <div className="form">
-        <img src={img} alt="Product" />
+      <section className="form">
+        <div className="fill form-image">
+          <img src={img} alt="Product" onError={this.fallbackToPlaceholderImg} />
+        </div>
         <InputWithLabel label="Image URL:" currentText={img} onChangeFn={this.onInputChange} varName="img" type="url" />
         <InputWithLabel
           label="Product Name:"
@@ -103,7 +112,7 @@ export default class Form extends Component {
           <Link to="/">Cancel</Link>
           {id === null ? (
             <Link to="/" onClick={this.onAddClick}>
-              Add product
+              Add to Inventory
             </Link>
           ) : (
             <Link to="/" onClick={this.onSaveClick}>
@@ -111,7 +120,7 @@ export default class Form extends Component {
             </Link>
           )}
         </section>
-      </div>
+      </section>
     );
   }
 }
