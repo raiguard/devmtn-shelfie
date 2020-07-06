@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import "./Form.css";
 
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
+
+import axios from "axios";
+import "./Form.css";
 
 export default class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrl: "",
-      productName: "",
+      img: "",
+      name: "",
       price: "0"
     };
   }
@@ -18,34 +20,39 @@ export default class Form extends Component {
   };
 
   onCancelClick = () => {
+    this.resetState();
+  };
+
+  onSubmitClick = () => {
+    const { name, price, img } = this.state;
+    axios
+      .post("/api/product", { name, price, img })
+      .then(() => {
+        this.props.getInventoryFn();
+        this.resetState();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  resetState = () => {
     this.setState({
-      imageUrl: "",
-      productName: "",
+      img: "",
+      name: "",
       price: "0"
     });
   };
 
-  onSubmitClick = () => {
-    alert("TODO: SUBMIT");
-  };
-
   render() {
-    const { imageUrl, productName, price } = this.state;
+    const { img, name, price } = this.state;
     return (
       <div className="form">
         <img src="" />
-        <InputWithLabel
-          label="Image URL:"
-          currentText={imageUrl}
-          onChangeFn={this.onInputChange}
-          varName="imageUrl"
-          type="url"
-        />
+        <InputWithLabel label="Image URL:" currentText={img} onChangeFn={this.onInputChange} varName="img" type="url" />
         <InputWithLabel
           label="Product Name:"
-          currentText={productName}
+          currentText={name}
           onChangeFn={this.onInputChange}
-          varName="productName"
+          varName="name"
           type="text"
         />
         <InputWithLabel

@@ -16,18 +16,22 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    this.getInventory();
+  }
+
+  getInventory = () => {
     axios
       .get("/api/inventory")
       .then((res) => this.setState({ products: res.data }))
       .catch((err) => console.log(err));
-  }
+  };
 
   render() {
     const { products } = this.state;
     return (
       <div className="app">
         <Header />
-        <Form />
+        <Form getInventoryFn={this.getInventory} />
         <Dashboard products={products} />
       </div>
     );
