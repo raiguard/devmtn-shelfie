@@ -21,6 +21,7 @@ massive({
   .catch((err) => console.log(err));
 
 app.get("/api/inventory", cont.getInventory);
+app.get("/api/product/:id", cont.getProduct);
 app.post("/api/product", cont.createProduct);
 app.delete("/api/product/:id", cont.deleteProduct);
 

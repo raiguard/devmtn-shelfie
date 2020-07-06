@@ -11,7 +11,8 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: [],
+      selected: null
     };
   }
 
@@ -26,13 +27,18 @@ export default class App extends Component {
       .catch((err) => console.log(err));
   };
 
+  setSelected = (id) => {
+    console.log(id);
+    this.setState({ selected: id });
+  };
+
   render() {
-    const { products } = this.state;
+    const { products, selected } = this.state;
     return (
       <div className="app">
         <Header />
-        <Form getInventoryFn={this.getInventory} />
-        <Dashboard products={products} getInventoryFn={this.getInventory} />
+        <Form selected={selected} getInventoryFn={this.getInventory} />
+        <Dashboard products={products} getInventoryFn={this.getInventory} setSelectedFn={this.setSelected} />
       </div>
     );
   }

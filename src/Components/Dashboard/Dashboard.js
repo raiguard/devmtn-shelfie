@@ -12,11 +12,11 @@ export default class Dashboard extends Component {
       .catch((err) => console.log(err));
   };
   render() {
-    const { products } = this.props;
+    const { products, setSelectedFn } = this.props;
     return (
       <section>
         {products.map((product, i) => (
-          <Product key={i} data={product} deleteProductFn={this.deleteProduct} />
+          <Product key={i} data={product} deleteProductFn={this.deleteProduct} setSelectedFn={setSelectedFn} />
         ))}
       </section>
     );

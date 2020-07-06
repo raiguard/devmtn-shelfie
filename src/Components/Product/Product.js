@@ -15,6 +15,7 @@ export default class Dashboard extends Component {
           <p>Name: {data.name}</p>
           <p>Price: {data.price}</p>
           <button onClick={this.onDeleteButtonClick}>Delete</button>
+          <button onClick={() => this.props.setSelectedFn(+data.id)}>Edit</button>
         </div>
       </section>
     );

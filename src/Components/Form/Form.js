@@ -8,11 +8,26 @@ import "./Form.css";
 export default class Form extends Component {
   constructor(props) {
     super(props);
+    const { selected } = this.props;
     this.state = {
       img: "",
       name: "",
-      price: "0"
+      price: "0",
+      selected
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selected } = this.props;
+    if (prevProps.selected !== selected) {
+      this.setState({ selected });
+      if (selected !== null) {
+        axios.get(`/api/product/${selected}`).then((res) => {
+          const { img, name, price } = res.data[0];
+          this.setState({ img, name, price });
+        });
+      }
+    }
   }
 
   onInputChange = (varName, currentText) => {
@@ -23,7 +38,7 @@ export default class Form extends Component {
     this.resetState();
   };
 
-  onSubmitClick = () => {
+  onAddClick = () => {
     const { name, price, img } = this.state;
     axios
       .post("/api/product", { name, price, img })
@@ -34,16 +49,21 @@ export default class Form extends Component {
       .catch((err) => console.log(err));
   };
 
+  onSaveClick = () => {
+    const { name, price, img, selected } = this.state;
+  };
+
   resetState = () => {
     this.setState({
       img: "",
       name: "",
-      price: "0"
+      price: "0",
+      selected: null
     });
   };
 
   render() {
-    const { img, name, price } = this.state;
+    const { img, name, price, selected } = this.state;
     return (
       <div className="form">
         <img src="" alt="TODO" />
@@ -65,7 +85,11 @@ export default class Form extends Component {
         />
         <section className="form-button-row">
           <button onClick={this.onCancelClick}>Cancel</button>
-          <button onClick={this.onSubmitClick}>Submit</button>
+          {selected === null ? (
+            <button onClick={this.onAddClick}>Add product</button>
+          ) : (
+            <button onClick={this.onSaveClick}>Save changes</button>
+          )}
         </section>
       </div>
     );
