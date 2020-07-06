@@ -28,7 +28,6 @@ export default class App extends Component {
   };
 
   setSelected = (id) => {
-    console.log(id);
     this.setState({ selected: id });
   };
 

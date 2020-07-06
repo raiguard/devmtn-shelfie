@@ -31,6 +31,9 @@ export default class Form extends Component {
   }
 
   onInputChange = (varName, currentText) => {
+    if (varName === "price") {
+      currentText = Math.abs(currentText);
+    }
     this.setState({ [varName]: currentText });
   };
 
@@ -39,9 +42,11 @@ export default class Form extends Component {
   };
 
   onAddClick = () => {
-    const { name, price, img } = this.state;
+    const { img, name } = this.state;
+    let { price } = this.state;
+    price = +price;
     axios
-      .post("/api/product", { name, price, img })
+      .post("/api/product", { img, name, price })
       .then(() => {
         this.props.getInventoryFn();
         this.resetState();
@@ -50,7 +55,16 @@ export default class Form extends Component {
   };
 
   onSaveClick = () => {
-    const { name, price, img, selected } = this.state;
+    const { name, img, selected } = this.state;
+    let { price } = this.state;
+    price = +price;
+    axios
+      .put(`/api/product/${selected}`, { img, name, price })
+      .then(() => {
+        this.props.getInventoryFn();
+        this.resetState();
+      })
+      .catch((err) => console.log(err));
   };
 
   resetState = () => {
