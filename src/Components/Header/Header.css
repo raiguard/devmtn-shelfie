@@ -1,0 +1,32 @@
+header {
+  background-color: #ab2a19;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 3rem;
+}
+
+.header-title {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: 500;
+  box-sizing: border-box;
+  padding: 0rem 4rem 0rem 1rem;
+}
+
+.header-nav-link {
+  background-color: #ed6b5a;
+  color: #000000;
+  text-decoration: none;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin: 0rem 0.5rem;
+  border-radius: 0.4rem;
+}
