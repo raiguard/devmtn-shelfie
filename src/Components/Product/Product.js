@@ -6,7 +6,7 @@ export default class Dashboard extends Component {
     const { data } = this.props;
     return (
       <section className="product">
-        <img className="product-image" src={data.imageUrl} />
+        <img className="product-image" src={data.img} />
         {/* <div className="product-image-container">
         </div> */}
         <div className="product-description-container">
